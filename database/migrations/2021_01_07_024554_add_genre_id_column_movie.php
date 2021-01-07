@@ -13,7 +13,10 @@ class AddGenreIdColumnMovie extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('movie', function (Blueprint $table) {
+            $table->unsignedBigInteger('genre_id');
+            $table->foreign('genre_id')->references('id')->on('genre')->onDelete('restrict');
+});
     }
 
     /**
@@ -23,6 +26,8 @@ class AddGenreIdColumnMovie extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('movie', function (Blueprint $table) {
+            $table->dropForeign(['genre_id']);
+        });
     }
 }
